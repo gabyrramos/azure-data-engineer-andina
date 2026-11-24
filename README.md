@@ -28,7 +28,7 @@ Azure SQL → Azure Data Factory → ADLS Gen2 (bronze/silver/gold) → Databric
 | 3 | Diseño del lakehouse | [diseño](etapa-03/entrega-s03.md) | hecha |
 | 4 | Data lake ADLS Gen2 | [evidencia](etapa-04/evidencia-s04.md) | hecha (falta prueba RBAC/ACL) |
 | 5 | Databricks y tablas Delta (bronce) | [evidencia](etapa-05/evidencia-s05.md) | hecha |
-| 6 | Bronce → plata | [evidencia](etapa-06/evidencia-s06.md) | hecha (falta job) |
+| 6 | Bronce → plata → gold | [plata](etapa-06/evidencia-s06.md) · [gold](etapa-06/evidencia-gold.md) | hecha (falta job) |
 | 7-8 | Data Factory, Key Vault y presentación final | — | pendiente |
 
 ## Nota de seguridad
