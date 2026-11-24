@@ -21,12 +21,15 @@ Azure SQL → Azure Data Factory → ADLS Gen2 (bronze/silver/gold) → Databric
 
 ## Avance por etapas
 
-| Etapa | Tema | Estado |
-|---|---|---|
-| 1 | Nube, naming y grupo de recursos | grupo creado · ficha pendiente |
-| 2 | Azure SQL Database (5 tablas de Andina) | tablas cargadas y validadas · entrega pendiente |
-| 3 | Diseño del lakehouse | pendiente |
-| 4 | Data lake ADLS Gen2 | en curso |
+| Etapa | Tema | Entrega | Estado |
+|---|---|---|---|
+| 1 | Nube, naming y grupo de recursos | [ficha](etapa-01/ficha-decision-nube.md) | hecha (falta estimación de costo) |
+| 2 | Azure SQL Database (5 tablas de Andina) | [entrega](etapa-02/entrega-lab01.md) | hecha |
+| 3 | Diseño del lakehouse | [diseño](etapa-03/entrega-s03.md) | hecha |
+| 4 | Data lake ADLS Gen2 | [evidencia](etapa-04/evidencia-s04.md) | hecha (falta prueba RBAC/ACL) |
+| 5 | Databricks y tablas Delta (bronce) | [evidencia](etapa-05/evidencia-s05.md) | hecha |
+| 6 | Bronce → plata | [evidencia](etapa-06/evidencia-s06.md) | hecha (falta job) |
+| 7-8 | Data Factory, Key Vault y presentación final | — | pendiente |
 
 ## Nota de seguridad
 
