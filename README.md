@@ -23,7 +23,7 @@ Azure SQL → Azure Data Factory → ADLS Gen2 (bronze/silver/gold) → Databric
 
 | Etapa | Tema | Entrega | Estado |
 |---|---|---|---|
-| 1 | Nube, naming y grupo de recursos | [ficha](etapa-01/ficha-decision-nube.md) | hecha (falta estimación de costo) |
+| 1 | Nube, naming y grupo de recursos | [ficha](etapa-01/ficha-decision-nube.md) | hecha |
 | 2 | Azure SQL Database (5 tablas de Andina) | [entrega](etapa-02/entrega-lab01.md) | hecha |
 | 3 | Diseño del lakehouse | [diseño](etapa-03/entrega-s03.md) | hecha |
 | 4 | Data lake ADLS Gen2 | [evidencia](etapa-04/evidencia-s04.md) | hecha (falta prueba RBAC/ACL) |

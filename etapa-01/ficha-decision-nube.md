@@ -28,7 +28,16 @@ Etiquetas del grupo: curso · alumno · entorno · modulo · vence
 | Azure Databricks | PaaS | notebooks, jobs y datos |
 
 ## Paso 4 · Estimación de costo
-_Pendiente: completar con la Calculadora de precios de Azure (fecha, región, supuestos y enlace)._
+**Fecha:** 2026-11-25 · **Región:** Brazil South
+
+**Supuestos:** Data Lake Storage Gen2, Standard, redundancia LRS, nivel de acceso Hot, 1.000 GB (1 TB), pago por uso. Incluye un volumen pequeño de operaciones de lectura y escritura y 1.000 GB de lectura y de escritura de datos.
+
+**Archivo exportado:** [`estimacion-costo.xlsx`](estimacion-costo.xlsx)
+
+**Resultado estimado:** **34,81 USD al mes** (precios en dólares).
+
+> Es una estimación, no una cotización: el costo real depende de las operaciones y del tráfico. El archivo exportado también incluye una fila de East US (21,84 USD) de una prueba anterior; no se usa en esta ficha, y por eso el total del archivo (56,66 USD) no es el resultado.
+> Nota: la calculadora modela la cuenta con estructura de archivos plana; mi lago real tiene namespace jerárquico activado.
 
 ## Paso 5 · Equivalencias
 | Función | AWS | Azure | Google Cloud |
