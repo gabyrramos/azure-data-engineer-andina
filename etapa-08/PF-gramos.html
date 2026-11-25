@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>PF Andina Retail · gramos</title>
+<style>
+@page { size: 1280px 720px; margin: 0 }
+* { box-sizing: border-box }
+body { margin:0; font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color:#1b2733 }
+.s { width:1280px; height:720px; padding:44px 56px; page-break-after:always; overflow:hidden; background:#fff; position:relative }
+.s:last-child { page-break-after:auto }
+h1 { font-size:34px; margin:0 0 6px; color:#0f4c81 }
+.sub { color:#5a6b7b; font-size:16px; margin-bottom:22px }
+h2 { font-size:20px; margin:0 0 8px; color:#0f4c81 }
+p, li { font-size:18px; line-height:1.45 }
+ul { margin:6px 0 0 20px; padding:0 }
+.foot { position:absolute; bottom:18px; left:56px; right:56px; font-size:12px; color:#8a97a4; display:flex; justify-content:space-between }
+.flow { display:flex; align-items:center; gap:10px; margin:14px 0 18px }
+.box { flex:1; min-width:0; border:2px solid #0f4c81; border-radius:10px; padding:12px 10px; text-align:center; background:#eef5fb; min-height:150px }
+.box b { display:block; font-size:17px; color:#0f4c81; margin-bottom:6px }
+.box span { font-size:11px; color:#34495e; line-height:1.6 }
+.arrow { font-size:28px; color:#0f4c81 }
+.sec { display:flex; gap:12px; margin-top:6px }
+.pill { flex:1; background:#f4f7fa; border-left:4px solid #0f4c81; padding:10px 12px; font-size:14.5px; line-height:1.4 }
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:14px }
+.g2 figure { margin:0 }
+.g2 img, .row img { width:100%; border:1px solid #cfd8e0; border-radius:6px; display:block }
+.ev img { height:190px; object-fit:cover; object-position:top left }
+figcaption { font-size:13px; color:#5a6b7b; margin-top:4px }
+.row { display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start }
+table { border-collapse:collapse; font-size:15px; width:100% }
+td, th { border:1px solid #cfd8e0; padding:5px 9px; text-align:left }
+th { background:#eef5fb }
+.num { font-size:15.5px; background:#eaf6ee; border-left:4px solid #2e8b57; padding:8px 12px; margin:10px 0 }
+.quote { font-style:italic; color:#0f4c81; font-size:17px; margin-top:12px }
+</style></head><body>
+
+<section class="s">
+  <h1>Problema · Andina Retail</h1>
+  <div class="sub">Cadena de 40 tiendas con las ventas en un SQL Server propio, picos de campaña y datos personales (Ley 29733). Quiere analítica y, después, IA.</div>
+  <h2>Preguntas de negocio que responde mi plataforma</h2>
+  <ul>
+    <li><b>¿Cuánto pagó cada cliente por método de pago?</b> &nbsp;Resultado: 8 filas y 13.158,50 en total.</li>
+    <li><b>¿Cuánto se vende por canal y estado del pedido?</b> &nbsp;Web pagado 10.404,50 · tienda pagado 2.754,00 · web cancelado 249,00.</li>
+    <li><b>¿Los números de la plata cuadran con los del origen?</b> &nbsp;Sí: 13.407,50 en bronce, plata y gold.</li>
+  </ul>
+  <div class="num"><b>Mi plataforma va del dato de origen al dato listo para analizar:</b> SQL → ADF → lago → Databricks → consulta.</div>
+  <div class="foot"><span>Proyecto final · P.E. Data Engineer Azure</span><span>Gabriela Ramos · alias gramos · 1/5</span></div>
+</section>
+
+<section class="s">
+  <h1>Arquitectura</h1>
+  <div class="sub">Cinco piezas conectadas, con los nombres reales del sistema de nombres del curso. Todo en Brazil South con las etiquetas curso, alumno, entorno, modulo y vence.</div>
+  <div class="flow">
+    <div class="box"><b>Azure SQL</b><span>sql-pede-gramos-dev-brs-001<br>sqldb-andina-ventas-dev</span></div><div class="arrow">→</div>
+    <div class="box"><b>Data Factory</b><span>adf-pede-gramos-dev-brs-001<br>pl_pede_ingesta</span></div><div class="arrow">→</div>
+    <div class="box"><b>ADLS Gen2</b><span>stpedegramosdldevbrs001<br>bronze · silver · gold</span></div><div class="arrow">→</div>
+    <div class="box"><b>Databricks</b><span>dbw-pede-gramos-dev-brs-001<br>catálogo pede_dev</span></div><div class="arrow">→</div>
+    <div class="box"><b>SQL analítico</b><span>wh-pede-gramos-dev<br>job-pede-plata</span></div>
+  </div>
+  <div class="sec">
+    <div class="pill"><b>Seguridad</b><br>Contraseña del SQL en Key Vault (kv-pede-gramos-dev-001). Acceso al lago por identidad administrada, sin claves de cuenta.</div>
+    <div class="pill"><b>Lago fuera de Databricks</b><br>Los datos viven en ADLS Gen2 y sobreviven a la herramienta de cómputo.</div>
+    <div class="pill"><b>Gobierno</b><br>Unity Catalog: credencial, 3 external locations (bronze, silver, gold) y esquemas por capa.</div>
+  </div>
+  <div class="foot"><span>Proyecto final · P.E. Data Engineer Azure</span><span>2/5</span></div>
+</section>
+
+<section class="s">
+  <h1>Datos</h1>
+  <div class="sub">Las 5 tablas core de Andina: customers (5), products (8), orders (10), order_items (15), payments (9). No incluí maestro de tiendas ni tipo de cambio.</div>
+  <div class="row">
+    <figure><img src="../capturas/02-lago-carpetas.png" alt="Lago"><figcaption>Ingesta de ADF: bronze/pedidos_ingesta/2026-11-25/&lt;tabla&gt;/ (5 carpetas)</figcaption></figure>
+    <figure><img src="../capturas/03-bronce-tablas.png" alt="Bronce"><figcaption>pede_dev.bronze: 5 tablas Delta externas</figcaption></figure>
+  </div>
+  <p style="margin-top:12px;font-size:16px"><b>Rutas:</b> CSV crudos en <code>bronze/pedidos/fecha_carga=2026-10-10/</code> → tablas Delta en <code>bronze/delta/</code> → plata <code>silver/delta/pedidos_detalle</code> → gold <code>gold/delta/ventas_por_canal</code>.</p>
+  <div class="foot"><span>Proyecto final · P.E. Data Engineer Azure</span><span>3/5</span></div>
+</section>
+
+<section class="s">
+  <h1>Evidencia</h1>
+  <div class="sub">Pipeline verde, job en Succeeded y los números que cuadran.</div>
+  <div class="g2 ev">
+    <figure><img src="../capturas/01-adf-monitor.png" alt="ADF"><figcaption>Monitor de ADF: pl_pede_ingesta Succeeded (el run Failed previo fue la base Serverless en autopausa)</figcaption></figure>
+    <figure><img src="../capturas/05-job-run.png" alt="Job" style="object-position:bottom left"><figcaption>job-pede-plata: run Succeeded y schedule Paused</figcaption></figure>
+    <figure><img src="../capturas/04-calidad.png" alt="Calidad" style="object-position:bottom left"><figcaption>Reconciliación: plata 13.407,5 = bronce 13.407,5</figcaption></figure>
+    <figure><img src="../capturas/06-trigger-stopped.png" alt="Trigger"><figcaption>Trigger tr_diario_0130 Stopped (decisión consciente)</figcaption></figure>
+  </div>
+  <div class="num" style="margin-top:10px"><b>Conteos 5/8/10/15/9 · plata 15 filas, 10 pedidos, 13.407,50 · claves nulas 0 · duplicados 0</b></div>
+  <div class="foot"><span>Proyecto final · P.E. Data Engineer Azure</span><span>4/5</span></div>
+</section>
+
+<section class="s">
+  <h1>Aprendizajes</h1>
+  <div class="sub">Tres decisiones que defendería en una entrevista y un error que resolví.</div>
+  <div class="g2" style="gap:22px">
+    <div>
+      <h2>Decisiones</h2>
+      <ul>
+        <li><b>Lago en ADLS, fuera de Databricks:</b> los datos sobreviven a la herramienta y se gobiernan por zonas.</li>
+        <li><b>Contraseña en Key Vault:</b> ADF la lee por referencia; su valor nunca aparece en el pipeline.</li>
+        <li><b>Trigger pausado y job con schedule en pausa:</b> se activan con criterio, no por defecto, para controlar costo.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Un error y su solución</h2>
+      <p>La ingesta creó una carpeta llamada literalmente <code>fecha = @pipeline().parameters.fecha</code>: puse el parámetro como texto y no como expresión dinámica. Lo detecté revisando el lago, lo corregí con <code>@pipeline().parameters.fecha</code> y la ruta ahora es <code>pedidos_ingesta/2026-11-25/</code>.</p>
+      <h2 style="margin-top:14px">Limitación honesta</h2>
+      <p style="font-size:16px">El bronce Delta se cargó desde los CSV de <code>pedidos/</code>. El siguiente paso es apuntar el notebook de bronce a la salida de ADF (<code>pedidos_ingesta</code>) para cerrar la cadena automática.</p>
+    </div>
+  </div>
+  <div class="quote">“Cada pieza tiene dueño, nombre y evidencia.”</div>
+  <div class="foot"><span>Proyecto final · P.E. Data Engineer Azure</span><span>5/5</span></div>
+</section>
+</body></html>
