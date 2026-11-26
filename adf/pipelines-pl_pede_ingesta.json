@@ -1,0 +1,155 @@
+{
+  "name": "pl_pede_ingesta",
+  "properties": {
+    "activities": [
+      {
+        "dependsOn": [],
+        "name": "lk_tablas",
+        "type": "Lookup",
+        "typeProperties": {
+          "dataset": {
+            "parameters": {
+              "tableName": "customers"
+            },
+            "referenceName": "ds_pede_sql_tabla",
+            "type": "DatasetReference"
+          },
+          "firstRowOnly": false,
+          "source": {
+            "sqlReaderQuery": "SELECT TABLE_NAME AS nombre FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_SCHEMA='dbo' AND TABLE_NAME IN ('customers','products','orders','order_items','payments')",
+            "type": "AzureSqlSource"
+          }
+        }
+      },
+      {
+        "dependsOn": [
+          {
+            "activity": "lk_tablas",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "name": "fe_tablas",
+        "type": "ForEach",
+        "typeProperties": {
+          "activities": [
+            {
+              "dependsOn": [],
+              "inputs": [
+                {
+                  "parameters": {
+                    "tableName": {
+                      "type": "Expression",
+                      "value": "@item().nombre"
+                    }
+                  },
+                  "referenceName": "ds_pede_sql_tabla",
+                  "type": "DatasetReference"
+                }
+              ],
+              "name": "cp_tabla",
+              "outputs": [
+                {
+                  "parameters": {
+                    "fecha": {
+                      "type": "Expression",
+                      "value": "@pipeline().parameters.fecha"
+                    },
+                    "nombre_tabla": {
+                      "type": "Expression",
+                      "value": "@item().nombre"
+                    }
+                  },
+                  "referenceName": "ds_pede_bronze_csv",
+                  "type": "DatasetReference"
+                }
+              ],
+              "policy": {
+                "retry": 1,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false,
+                "timeout": "0.00:20:00"
+              },
+              "type": "Copy",
+              "typeProperties": {
+                "sink": {
+                  "formatSettings": {
+                    "fileExtension": ".csv",
+                    "quoteAllText": true,
+                    "type": "DelimitedTextWriteSettings"
+                  },
+                  "storeSettings": {
+                    "type": "AzureBlobFSWriteSettings"
+                  },
+                  "type": "DelimitedTextSink"
+                },
+                "source": {
+                  "type": "AzureSqlSource"
+                }
+              },
+              "userProperties": [
+                {
+                  "name": "tabla",
+                  "value": "@item().nombre"
+                },
+                {
+                  "name": "fecha",
+                  "value": "@pipeline().parameters.fecha"
+                },
+                {
+                  "name": "destino",
+                  "value": "@concat('bronze/pedidos_ingesta/',pipeline().parameters.fecha,'/',item().nombre)"
+                }
+              ]
+            },
+            {
+              "dependsOn": [
+                {
+                  "activity": "cp_tabla",
+                  "dependencyConditions": [
+                    "Succeeded"
+                  ]
+                }
+              ],
+              "name": "av_tabla",
+              "type": "AppendVariable",
+              "typeProperties": {
+                "value": {
+                  "type": "Expression",
+                  "value": "@concat(item().nombre,':',string(activity('cp_tabla').output.rowsCopied))"
+                },
+                "variableName": "v_tablas"
+              }
+            }
+          ],
+          "batchCount": 5,
+          "items": {
+            "type": "Expression",
+            "value": "@activity('lk_tablas').output.value"
+          }
+        }
+      }
+    ],
+    "annotations": [
+      "pf-andina",
+      "etapa4",
+      "ingesta"
+    ],
+    "description": "Copia las tablas de la base transaccional de Andina al lago: bronze/pedidos_ingesta/<fecha>/<tabla>/",
+    "lastPublishTime": "2026-11-26T19:51:44Z",
+    "parameters": {
+      "fecha": {
+        "defaultValue": "2026-11-18",
+        "type": "String"
+      }
+    },
+    "variables": {
+      "v_tablas": {
+        "defaultValue": [],
+        "type": "Array"
+      }
+    }
+  }
+}

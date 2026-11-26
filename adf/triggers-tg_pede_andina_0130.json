@@ -1,0 +1,33 @@
+{
+  "name": "tg_pede_andina_0130",
+  "properties": {
+    "annotations": [
+      "pf-andina",
+      "etapa4"
+    ],
+    "pipelines": [
+      {
+        "parameters": {
+          "fecha": {
+            "type": "Expression",
+            "value": "@formatDateTime(convertTimeZone(trigger().scheduledTime,'UTC','SA Pacific Standard Time'),'yyyy-MM-dd')"
+          }
+        },
+        "pipelineReference": {
+          "referenceName": "pl_pede_andina_diario",
+          "type": "PipelineReference"
+        }
+      }
+    ],
+    "runtimeState": "Stopped",
+    "type": "ScheduleTrigger",
+    "typeProperties": {
+      "recurrence": {
+        "frequency": "Day",
+        "interval": 1,
+        "startTime": "2026-11-27T01:30:00",
+        "timeZone": "SA Pacific Standard Time"
+      }
+    }
+  }
+}

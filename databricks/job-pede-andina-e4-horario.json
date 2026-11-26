@@ -1,0 +1,48 @@
+{
+  "description": "Andina Retail 1:1.000: clics y logs a bronce cada hora con Auto Loader (solo archivos nuevos). No depende de Data Factory.",
+  "email_notifications": {},
+  "format": "MULTI_TASK",
+  "max_concurrent_runs": 1,
+  "name": "job-pede-andina-e4-horario",
+  "parameters": [
+    {
+      "default": "stpedegramosdldevbrs001",
+      "name": "storage_account"
+    },
+    {
+      "default": "pede_dev",
+      "name": "catalog"
+    },
+    {
+      "default": "no",
+      "name": "reiniciar"
+    }
+  ],
+  "queue": {
+    "enabled": true
+  },
+  "schedule": {
+    "pause_status": "PAUSED",
+    "quartz_cron_expression": "0 5 * * * ?",
+    "timezone_id": "America/Lima"
+  },
+  "tags": {
+    "curso": "pede-azure-de",
+    "etapa": "4"
+  },
+  "tasks": [
+    {
+      "disabled": false,
+      "email_notifications": {},
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/<usuario>/pede-etapa4/e4_00_clics_logs_horario",
+        "source": "WORKSPACE"
+      },
+      "run_if": "ALL_SUCCESS",
+      "task_key": "clics_logs",
+      "timeout_seconds": 0
+    }
+  ],
+  "timeout_seconds": 0,
+  "webhook_notifications": {}
+}

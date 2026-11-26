@@ -1,0 +1,44 @@
+{
+  "name": "ds_pede_sql_tabla",
+  "properties": {
+    "annotations": [
+      "pf-andina",
+      "etapa4"
+    ],
+    "linkedServiceName": {
+      "parameters": {
+        "base": {
+          "type": "Expression",
+          "value": "@dataset().base"
+        },
+        "servidor": {
+          "type": "Expression",
+          "value": "@dataset().servidor"
+        }
+      },
+      "referenceName": "ls_pede_sql_gramos",
+      "type": "LinkedServiceReference"
+    },
+    "parameters": {
+      "base": {
+        "defaultValue": "sqldb-andina-ventas-dev",
+        "type": "String"
+      },
+      "servidor": {
+        "defaultValue": "sql-pede-gramos-dev-brs-001.database.windows.net",
+        "type": "String"
+      },
+      "tableName": {
+        "type": "String"
+      }
+    },
+    "type": "AzureSqlTable",
+    "typeProperties": {
+      "schema": "dbo",
+      "table": {
+        "type": "Expression",
+        "value": "@dataset().tableName"
+      }
+    }
+  }
+}

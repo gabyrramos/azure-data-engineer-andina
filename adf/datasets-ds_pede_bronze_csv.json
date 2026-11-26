@@ -1,0 +1,40 @@
+{
+  "name": "ds_pede_bronze_csv",
+  "properties": {
+    "annotations": [
+      "pf-andina",
+      "etapa4"
+    ],
+    "linkedServiceName": {
+      "referenceName": "ls_pede_lake_gramos",
+      "type": "LinkedServiceReference"
+    },
+    "parameters": {
+      "fecha": {
+        "type": "String"
+      },
+      "nombre_tabla": {
+        "type": "String"
+      }
+    },
+    "type": "DelimitedText",
+    "typeProperties": {
+      "columnDelimiter": ",",
+      "escapeChar": "\"",
+      "firstRowAsHeader": true,
+      "location": {
+        "fileName": {
+          "type": "Expression",
+          "value": "@concat(dataset().nombre_tabla,'.csv')"
+        },
+        "fileSystem": "bronze",
+        "folderPath": {
+          "type": "Expression",
+          "value": "@concat('pedidos_ingesta/',dataset().fecha,'/',dataset().nombre_tabla)"
+        },
+        "type": "AzureBlobFSLocation"
+      },
+      "quoteChar": "\""
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ls_pede_lake",
+  "properties": {
+    "annotations": [],
+    "type": "AzureBlobFS",
+    "typeProperties": {
+      "url": "https://stpedegramosdldevbrs001.dfs.core.windows.net/"
+    }
+  }
+}

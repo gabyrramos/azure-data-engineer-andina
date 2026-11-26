@@ -1,0 +1,14 @@
+{
+  "name": "ls_pede_lake_gramos",
+  "properties": {
+    "annotations": [
+      "pf-andina",
+      "etapa4",
+      "lago"
+    ],
+    "type": "AzureBlobFS",
+    "typeProperties": {
+      "url": "https://stpedegramosdldevbrs001.dfs.core.windows.net"
+    }
+  }
+}

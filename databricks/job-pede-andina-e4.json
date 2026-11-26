@@ -1,0 +1,75 @@
+{
+  "description": "Andina Retail 1:1.000: bronce -> plata -> oro. Lo dispara Data Factory (pl_pede_andina_diario).",
+  "email_notifications": {},
+  "format": "MULTI_TASK",
+  "max_concurrent_runs": 1,
+  "name": "job-pede-andina-e4",
+  "parameters": [
+    {
+      "default": "2026-11-18",
+      "name": "fecha"
+    },
+    {
+      "default": "stpedegramosdldevbrs001",
+      "name": "storage_account"
+    },
+    {
+      "default": "pede_dev",
+      "name": "catalog"
+    }
+  ],
+  "queue": {
+    "enabled": true
+  },
+  "tags": {
+    "curso": "pede-azure-de",
+    "etapa": "4"
+  },
+  "tasks": [
+    {
+      "disabled": false,
+      "email_notifications": {},
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/<usuario>/pede-etapa4/e4_01_bronce",
+        "source": "WORKSPACE"
+      },
+      "run_if": "ALL_SUCCESS",
+      "task_key": "bronce",
+      "timeout_seconds": 0
+    },
+    {
+      "depends_on": [
+        {
+          "task_key": "bronce"
+        }
+      ],
+      "disabled": false,
+      "email_notifications": {},
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/<usuario>/pede-etapa4/e4_02_plata",
+        "source": "WORKSPACE"
+      },
+      "run_if": "ALL_SUCCESS",
+      "task_key": "plata",
+      "timeout_seconds": 0
+    },
+    {
+      "depends_on": [
+        {
+          "task_key": "plata"
+        }
+      ],
+      "disabled": false,
+      "email_notifications": {},
+      "notebook_task": {
+        "notebook_path": "/Workspace/Users/<usuario>/pede-etapa4/e4_03_oro",
+        "source": "WORKSPACE"
+      },
+      "run_if": "ALL_SUCCESS",
+      "task_key": "oro",
+      "timeout_seconds": 0
+    }
+  ],
+  "timeout_seconds": 0,
+  "webhook_notifications": {}
+}

@@ -1,5 +1,7 @@
 # Evidencia · Proyecto final · Andina Retail
 
+> **Versión histórica (muestra chica de 47 filas).** La evidencia vigente de la plataforma 1:1.000, con los números de control del caso y la extensión, está en [`../evidencia.md`](../evidencia.md). Las limitaciones de abajo se resolvieron en esa corrida: ahora el bronce se carga desde la ingesta de ADF y están integradas las tiendas y el tipo de cambio.
+
 **Alumna:** Gabriela Ramos · **Alias:** `gramos` · **Región:** Brazil South
 Presentación: [`PF-gramos.pdf`](PF-gramos.pdf) (5 slides)
 

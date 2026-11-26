@@ -1,0 +1,35 @@
+{
+  "name": "tr_diario_0130",
+  "properties": {
+    "annotations": [],
+    "pipelines": [
+      {
+        "parameters": {
+          "fecha": "@formatDateTime(utcNow(),'yyyy-MM-dd')"
+        },
+        "pipelineReference": {
+          "referenceName": "pl_pede_ingesta",
+          "type": "PipelineReference"
+        }
+      }
+    ],
+    "runtimeState": "Stopped",
+    "type": "ScheduleTrigger",
+    "typeProperties": {
+      "recurrence": {
+        "frequency": "Day",
+        "interval": 1,
+        "schedule": {
+          "hours": [
+            1
+          ],
+          "minutes": [
+            30
+          ]
+        },
+        "startTime": "2026-11-25T23:16:00",
+        "timeZone": "SA Pacific Standard Time"
+      }
+    }
+  }
+}

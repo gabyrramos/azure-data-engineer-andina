@@ -1,0 +1,32 @@
+{
+  "name": "ls_pede_sql_gramos",
+  "properties": {
+    "annotations": [
+      "pf-andina",
+      "etapa4",
+      "origen"
+    ],
+    "parameters": {
+      "base": {
+        "defaultValue": "sqldb-andina-ventas-dev",
+        "type": "String"
+      },
+      "servidor": {
+        "defaultValue": "sql-pede-gramos-dev-brs-001.database.windows.net",
+        "type": "String"
+      }
+    },
+    "type": "AzureSqlDatabase",
+    "typeProperties": {
+      "connectionString": "Server=tcp:@{linkedService().servidor},1433;Database=@{linkedService().base};User ID=sqladminpede;Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=60",
+      "password": {
+        "secretName": "sqladminpede-password",
+        "store": {
+          "referenceName": "ls_pede_kv_gramos",
+          "type": "LinkedServiceReference"
+        },
+        "type": "AzureKeyVaultSecret"
+      }
+    }
+  }
+}

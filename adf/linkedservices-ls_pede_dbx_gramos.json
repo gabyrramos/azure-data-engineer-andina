@@ -1,0 +1,16 @@
+{
+  "name": "ls_pede_dbx_gramos",
+  "properties": {
+    "annotations": [
+      "pf-andina",
+      "etapa4",
+      "computo"
+    ],
+    "type": "AzureDatabricks",
+    "typeProperties": {
+      "authentication": "MSI",
+      "domain": "https://adb-7405608944095647.7.azuredatabricks.net",
+      "workspaceResourceId": "/subscriptions/<SUBSCRIPTION_ID>/resourceGroups/rg-pede-gramos-dev-brs-001/providers/Microsoft.Databricks/workspaces/dbw-pede-gramos-dev-brs-001"
+    }
+  }
+}

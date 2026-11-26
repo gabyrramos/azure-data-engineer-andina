@@ -1,0 +1,134 @@
+{
+  "name": "pl_pede_andina_diario",
+  "properties": {
+    "activities": [
+      {
+        "dependsOn": [],
+        "name": "sv_fecha",
+        "type": "SetVariable",
+        "typeProperties": {
+          "value": {
+            "type": "Expression",
+            "value": "@if(empty(pipeline().parameters.fecha), formatDateTime(convertTimeZone(utcNow(),'UTC','SA Pacific Standard Time'),'yyyy-MM-dd'), pipeline().parameters.fecha)"
+          },
+          "variableName": "v_fecha"
+        }
+      },
+      {
+        "dependsOn": [
+          {
+            "activity": "sv_fecha",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "name": "ep_ingesta",
+        "type": "ExecutePipeline",
+        "typeProperties": {
+          "parameters": {
+            "fecha": {
+              "type": "Expression",
+              "value": "@variables('v_fecha')"
+            }
+          },
+          "pipeline": {
+            "referenceName": "pl_pede_ingesta",
+            "type": "PipelineReference"
+          },
+          "waitOnCompletion": true
+        },
+        "userProperties": [
+          {
+            "name": "fecha",
+            "value": "@variables('v_fecha')"
+          }
+        ]
+      },
+      {
+        "dependsOn": [
+          {
+            "activity": "ep_ingesta",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "linkedServiceName": {
+          "referenceName": "ls_pede_dbx_gramos",
+          "type": "LinkedServiceReference"
+        },
+        "name": "job_andina",
+        "policy": {
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false,
+          "timeout": "0.01:00:00"
+        },
+        "type": "DatabricksJob",
+        "typeProperties": {
+          "jobId": "157043392184674",
+          "jobParameters": {
+            "catalog": "pede_dev",
+            "fecha": {
+              "type": "Expression",
+              "value": "@variables('v_fecha')"
+            },
+            "storage_account": "stpedegramosdldevbrs001"
+          }
+        },
+        "userProperties": [
+          {
+            "name": "fecha",
+            "value": "@variables('v_fecha')"
+          },
+          {
+            "name": "catalogo",
+            "value": "pede_dev"
+          }
+        ]
+      },
+      {
+        "dependsOn": [
+          {
+            "activity": "job_andina",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "name": "sv_resultado",
+        "type": "SetVariable",
+        "typeProperties": {
+          "value": {
+            "type": "Expression",
+            "value": "@concat('Andina ', variables('v_fecha'), ' procesada. Run de Databricks: ', activity('job_andina').output.runPageUrl)"
+          },
+          "variableName": "v_resultado"
+        }
+      }
+    ],
+    "annotations": [
+      "pf-andina",
+      "etapa4",
+      "orquestacion"
+    ],
+    "description": "Cadena completa de Andina: base transaccional -> lago (ADF) -> bronce, plata y oro (job de Databricks).",
+    "lastPublishTime": "2026-11-26T20:03:39Z",
+    "parameters": {
+      "fecha": {
+        "defaultValue": "",
+        "type": "String"
+      }
+    },
+    "variables": {
+      "v_fecha": {
+        "type": "String"
+      },
+      "v_resultado": {
+        "type": "String"
+      }
+    }
+  }
+}

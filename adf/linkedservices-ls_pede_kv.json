@@ -1,0 +1,10 @@
+{
+  "name": "ls_pede_kv",
+  "properties": {
+    "annotations": [],
+    "type": "AzureKeyVault",
+    "typeProperties": {
+      "baseUrl": "https://kv-pede-gramos-dev-001.vault.azure.net/"
+    }
+  }
+}

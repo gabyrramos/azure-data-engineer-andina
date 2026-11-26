@@ -1,0 +1,23 @@
+{
+  "name": "ls_pede_sql",
+  "properties": {
+    "annotations": [],
+    "type": "AzureSqlDatabase",
+    "typeProperties": {
+      "authenticationType": "SQL",
+      "database": "sqldb-andina-ventas-dev",
+      "encrypt": "mandatory",
+      "password": {
+        "secretName": "sqladminpede-password",
+        "store": {
+          "referenceName": "ls_pede_kv",
+          "type": "LinkedServiceReference"
+        },
+        "type": "AzureKeyVaultSecret"
+      },
+      "server": "sql-pede-gramos-dev-brs-001.database.windows.net",
+      "trustServerCertificate": false,
+      "userName": "sqladminpede"
+    }
+  }
+}
