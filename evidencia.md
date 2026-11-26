@@ -28,6 +28,10 @@ Esta es la evidencia de la plataforma a escala 1:1.000. Las etapas 2 a 8 que ent
 | order_items | 2026-11-26 | `bronze/pedidos_ingesta/2026-11-26/order_items` |
 | payments | 2026-11-26 | `bronze/pedidos_ingesta/2026-11-26/payments` |
 
+![Ingesta hija pl_pede_ingesta en el Monitor de ADF: Lookup, ForEach con cp_tabla y av_tabla, 12 actividades en Succeeded](capturas/e4-02-adf-ingesta-estructura.png)
+
+*Corrida de `pl_pede_ingesta` en el Monitor: `lk_tablas` (Lookup) → `fe_tablas` (ForEach) con `cp_tabla` (Copy) y `av_tabla` (Append variable) dentro. 12 actividades en Succeeded: 1 Lookup, 1 ForEach, 5 copias y 5 Append variable. La columna **User properties** marca las 5 copias.*
+
 - **Resultado en el lago:** `bronze/pedidos_ingesta/2026-11-26/<tabla>/<tabla>.csv`, 5 carpetas.
 
 ![Detalle del Copy de customers en el Monitor de ADF: 500 filas leídas del SQL y 500 escritas en el lago](capturas/e4-02b-adf-copy-detalle.png)
