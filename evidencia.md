@@ -28,6 +28,10 @@ Esta es la evidencia de la plataforma a escala 1:1.000. Las etapas 2 a 8 que ent
 | order_items | 2026-11-26 | `bronze/pedidos_ingesta/2026-11-26/order_items` |
 | payments | 2026-11-26 | `bronze/pedidos_ingesta/2026-11-26/payments` |
 
+![Pestaña User properties de la actividad cp_tabla en ADF Studio: tabla, fecha y destino con sus expresiones](capturas/e4-02c-adf-user-properties-valores.png)
+
+*Definición de las user properties de `cp_tabla` en `pl_pede_ingesta`: `tabla = @item().nombre`, `fecha = @pipeline().parameters.fecha` y `destino = @concat('bronze/pedidos_ingesta/', …)`. En cada iteración se evalúan y aparecen como los valores de la tabla de arriba.*
+
 ![Ingesta hija pl_pede_ingesta en el Monitor de ADF: Lookup, ForEach con cp_tabla y av_tabla, 12 actividades en Succeeded](capturas/e4-02-adf-ingesta-estructura.png)
 
 *Corrida de `pl_pede_ingesta` en el Monitor: `lk_tablas` (Lookup) → `fe_tablas` (ForEach) con `cp_tabla` (Copy) y `av_tabla` (Append variable) dentro. 12 actividades en Succeeded: 1 Lookup, 1 ForEach, 5 copias y 5 Append variable. La columna **User properties** marca las 5 copias.*
